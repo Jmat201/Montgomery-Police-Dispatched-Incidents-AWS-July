@@ -1,16 +1,17 @@
-# Montgomery-Police-Dispatched-Incidents-AWS-July
-### Montgomery County, Maryland (MD) Police Dispatched Incidents: July 2024
-A Project done in AWS based on Montgomery County, Maryland (MD) Police Dispatched Incidents in July 2024.
+# Montgomery-Police-Dispatched-Incidents-AWS-June
+### Montgomery County, Maryland (MD) Police Dispatched Incidents: June 2024
+A Project done in AWS based on Montgomery County, Maryland (MD) Police Dispatched Incidents in June 2024.
 
 ## Description
-Montgomery County, Maryland (MD) Police Dispatched Incidents: July 2024.  
+Montgomery County, Maryland (MD) Police Dispatched Incidents: June 2024.  
 This Data Engineering project was built based on the course [Build your first Serverless Data Engineering Project](https://maven.com/david-freitag/first-serverless-de-project) on Maven. The project aims to build a fully functional data engineering pipeline, including data ingestion from an external API, performing ETL workflow orchestration, data cleaning, data quality checks, publishing to production, and generating visualizations using Amazon Web Service (AWS) and Grafana.  
-The goal of the project is to analyze police dispatch incidents in Montgomery County, MD, to understand if certain types of incidents occur in specific parts of the county.
+
+The goal of the project is to analyze police dispatch incidents in Montgomery County, MD, to understand patterns of incidents that occur within different cities in Montgomery county along with an open-ended exploration of the data.
 
 ## About the Dataset
 The dataset is publicly available and provided by Montgomery County, MD. It is updated four times a day and contains a list of Police Dispatch Incidents in Montgomery County.  
 - Dataset link: [Police Dispatched Incidents](https://data.montgomerycountymd.gov/Public-Safety/Police-Dispatched-Incidents/98cc-bc7d/about_data)  
-- API call: Limited to 1157 records between 10 July to 13 July 2024  
+- API call: Limited to 1157 records between 10 June to 13 June 2024  
 - JSON URL: [Link to JSON](https://data.montgomerycountymd.gov/Public-Safety/Police-Dispatched-Incidents/98cc-bc7d/explore/query/SELECT%0A%20%20%60incident_id%60%2C%0A%20%20%60cr_number%60%2C%0A%20%20%60crash_reports%60%2C%0A%20%20%60start_time%60%2C%0A%20%20%60end_time%60%2C%0A%20%20%60priority%60%2C%0A%20%20%60initial_type%60%2C%0A%20%20%60close_type%60%2C%0A%20%20%60address%60%2C%0A%20%20%60city%60%2C%0A%20%20%60state%60%2C%0A%20%20%60zip%60%2C%0A%20%20%60longitude%60%2C%0A%20%20%60latitude%60%2C%0A%20%20%60police_district_number%60%2C%0A%20%20%60sector%60%2C%0A%20%20%60pra%60%2C%0A%20%20%60calltime_callroute%60%2C%0A%20%20%60calltime_dispatch%60%2C%0A%20%20%60calltime_arrive%60%2C%0A%20%20%60calltime_cleared%60%2C%0A%20%20%60callroute_dispatch%60%2C%0A%20%20%60dispatch_arrive%60%2C%0A%20%20%60arrive_cleared%60%2C%0A%20%20%60disposition_desc%60%2C%0A%20%20%60geolocation%60%2C%0A%20%20%60%3A%40computed_region_6vgr_duib%60%0AWHERE%0A%20%20%60start_time%60%0A%20%20%20%20BETWEEN%20%222024-06-01T00%3A00%3A00%22%20%3A%3A%20floating_timestamp%0A%20%20%20%20AND%20%222024-06-13T11%3A45%3A00%22%20%3A%3A%20floating_timestamp%0AORDER%20BY%20%60end_time%60%20DESC%20NULL%20FIRST/page/filter)
 
 ## Dataset Fields
@@ -46,10 +47,10 @@ The dataset is publicly available and provided by Montgomery County, MD. It is u
 | `row_ts`                  | Row timestamp of when the data was extracted from API Lambda function run                             |
 
 ## Tech Stack:
-- AWS - AWS Lamda, S3, AWS Glue, AWS Kinesis, Amazon EC2, AWS IAM, Amazon Firehose, Amazon Athena, AWS CloudWatch.
+- [AWS](https://aws.amazon.com/)- AWS Lamda, S3, AWS Glue, AWS Kinesis, Amazon EC2, AWS IAM, Amazon Firehose, Amazon Athena, AWS CloudWatch.
 - SQL
 - Python
-- Grafana 
+- [Grafana] (https://grafana.com/)
 
 ## Data Engineering Process & Pipeline: 
 
@@ -352,11 +353,14 @@ We removed all empty string values from the analysis for Q10-Q13.
 - A significantly higher percentage of ‘1: SUSPICIOUS CIRC, PERSON, VEHICLE’ and ‘2: TRAFFIC/TRANSPORTATION INCIDENT’ combinations occur in Gaithersburg.
 - Germantown has a notably high percentage of ‘2: STATION RESPONSE,’ which is not among the top 3 in any other city.
 
-## Future Improvements:
+## Limitations: 
+- Due to charges associated with pulling large number of records from the API call and processing them on AWS, the number of records for this project was limited to 1157.
 
-- Query on more data to see incidents across Montgomery county. 
+## Future Improvements:
+- Query on more data in June to see incidents across Montgomery county. 
 - Add more data to the analysis to see if patterns have changed 
-- From the analysis of Q6, do the particular combination of initia_type and disposition_Desc occur on specific streets/road addresses in Silver spring based on the map.  
+- From the analysis of Q6, do the particular combination of initia_type and disposition_Desc occur on specific streets/road addresses in Silver spring based on the map.
+- Time of day, week of day analyse of incidents.
 
 ## Author & Acknowledgement: 
 - Author: [Jeff Mathew Sam](https://www.linkedin.com/in/jeffmathewsam/)
