@@ -360,7 +360,7 @@ We removed all empty string values from the analysis for Q10-Q13.
 
 ## Author & Acknowledgement: 
 - Author: [Jeff Mathew Sam](https://www.linkedin.com/in/jeffmathewsam/)
-- Special thanks to [David Fretag](https://github.com/dkfreitag) for his invalueable guidance throughout the course. 
+- Deepest gratitude to David Fretag](https://github.com/dkfreitag) for his invaluable assistance throughout the course
 
 ## License
 This project is licensed under the MIT License.
