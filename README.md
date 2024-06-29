@@ -10,8 +10,7 @@ The goal of the project is to analyze police dispatch incidents in Montgomery Co
 ## About the Dataset
 The dataset is publicly available and provided by Montgomery County, MD. It is updated four times a day and contains a list of Police Dispatch Incidents in Montgomery County.  
 - Dataset link: [Police Dispatched Incidents](https://data.montgomerycountymd.gov/Public-Safety/Police-Dispatched-Incidents/98cc-bc7d/about_data)  
-- API call: Limited to 1000 records  
-- Date range: 10 July to 13 July 2024  
+- API call: Limited to 1157 records between 10 July to 13 July 2024  
 - JSON URL: [Link to JSON](https://data.montgomerycountymd.gov/Public-Safety/Police-Dispatched-Incidents/98cc-bc7d/explore/query/SELECT%0A%20%20%60incident_id%60%2C%0A%20%20%60cr_number%60%2C%0A%20%20%60crash_reports%60%2C%0A%20%20%60start_time%60%2C%0A%20%20%60end_time%60%2C%0A%20%20%60priority%60%2C%0A%20%20%60initial_type%60%2C%0A%20%20%60close_type%60%2C%0A%20%20%60address%60%2C%0A%20%20%60city%60%2C%0A%20%20%60state%60%2C%0A%20%20%60zip%60%2C%0A%20%20%60longitude%60%2C%0A%20%20%60latitude%60%2C%0A%20%20%60police_district_number%60%2C%0A%20%20%60sector%60%2C%0A%20%20%60pra%60%2C%0A%20%20%60calltime_callroute%60%2C%0A%20%20%60calltime_dispatch%60%2C%0A%20%20%60calltime_arrive%60%2C%0A%20%20%60calltime_cleared%60%2C%0A%20%20%60callroute_dispatch%60%2C%0A%20%20%60dispatch_arrive%60%2C%0A%20%20%60arrive_cleared%60%2C%0A%20%20%60disposition_desc%60%2C%0A%20%20%60geolocation%60%2C%0A%20%20%60%3A%40computed_region_6vgr_duib%60%0AWHERE%0A%20%20%60start_time%60%0A%20%20%20%20BETWEEN%20%222024-06-01T00%3A00%3A00%22%20%3A%3A%20floating_timestamp%0A%20%20%20%20AND%20%222024-06-13T11%3A45%3A00%22%20%3A%3A%20floating_timestamp%0AORDER%20BY%20%60end_time%60%20DESC%20NULL%20FIRST/page/filter)
 
 ## Dataset Fields
@@ -116,29 +115,27 @@ This orchestrated workflow ensures a streamlined and automated ETL process, prep
     - Is there a visible pattern of incidents occurring at particular street addresses or locations?
     - Are incidents more frequent around cross junctions or main roads/highways?
 
-#### Disposition Description (disposition_desc) for Top 4 initial_types
+#### Disposition Description (disposition_desc) for Top 4 initial_types in top 4 cities
 
 6. What is the most common combination of initial_type and disposition_desc in each of the top 4 cities?
     - Are there any combinations common across all top 4 cities?
 7. What are the specific disposition descriptions for the top 4 incident types in each of the top 4 cities?
 
-#### Analyzing Missing Values in ‘dispatch_arrive’ and ‘arrive_cleared’
+#### Analyzing Missing Values/empty strings in ‘dispatch_arrive’ and ‘arrive_cleared’
 
 8. Do ‘dispatch_arrive’ and ‘arrive_cleared’ have missing values?
     - Is there a pattern based on the type of incidents, sectors, or police district numbers?
     - Are there any notable patterns in the reporting of these values by different jurisdictions?
 
-#### Time Taken to Attend an Incident
+#### Time taken (in minutes) to attend an incident - Dispatch Arrive and Arrive Cleared
 
-9. How long does it take for the first unit to arrive on-scene (Dispatch Arrive) from dispatch in the top 4 cities for ‘TRAFFIC/TRANSPORTATION INCIDENT’, ‘DISTURBANCE/NUISANCE’, and ‘CHECK WELFARE’?
+9. How long does it take **for the first unit to arrive on-scene (Dispatch Arrive)** from dispatch in the top 4 cities for ‘TRAFFIC/TRANSPORTATION INCIDENT’, ‘DISTURBANCE/NUISANCE’, and ‘CHECK WELFARE’?
     - What are the common time ranges for these incidents (0-5 mins, 5-10 mins, etc.)?
     - How does the distribution of response times compare across the cities?
 
-10. How long does it take to clear an incident (arrive_cleared) from the first unit arriving to the last unit clearing in the top 4 cities for ‘TRAFFIC/TRANSPORTATION INCIDENT’, ‘DISTURBANCE/NUISANCE’, and ‘CHECK WELFARE’?
+10. How long does it take **to clear an incident (arrive_cleared) from the first unit arriving to the last unit clearing** in the top 4 cities for ‘TRAFFIC/TRANSPORTATION INCIDENT’, ‘DISTURBANCE/NUISANCE’, and ‘CHECK WELFARE’?
     - What are the common time ranges for these incidents (0-5 mins, 5-10 mins, etc.)?
     - How does the distribution of clearance times compare across the cities?
-
-#### Average Dispatch and Clearance Times Analysis
 
 11. Which initial_type and priority combinations have the worst and best Average Dispatch Arrival Minutes (ADM) across Silver Spring, Rockville, Gaithersburg, and Germantown?
     - How consistent are ADMs for the same incident types and priorities across different cities?
@@ -154,11 +151,11 @@ This orchestrated workflow ensures a streamlined and automated ETL process, prep
 15. Comparing ACMs for the same incident types and priorities across key streets (e.g., Georgia Ave, Rockville Pike, Colesville Rd, Veirs Mill Rd), which combinations perform worst and best consistently?
     - How distorted are ACMs for the same incident types and priorities across these streets?
 
-#### Incidents and Response Time Patterns
-
 16. Are there instances where a city has a higher ADM and a higher incident count for a particular initial_type and priority combination, indicating response challenges?
 
 17. Are there instances where a city has a lower ADM and a higher incident count for a particular initial_type and priority combination, indicating more efficient response?
+
+#### Comparison of Priority by incident in - Top 4 address and Top 4 cities 
 
 18. Is there a higher percentage of incidents and priorities in one city compared to another among the top 4 incident types in Silver Spring, Rockville, Gaithersburg, and Germantown?
 
@@ -181,15 +178,21 @@ Following are screenshots of the dashboard:
 ### Incidents by Address - (street and Road), Latitude, Longitude and Geocode
 
 ![Dashboard 8](https://github.com/Jmat201/Montgomery-Police-Dispatched-Incidents-AWS-July/blob/50a924fd61031abda96788302481c46b3ac5c153/Dashboard%20Screenshots%20and%20Images/8.png)
-![Dashboard 9](https://github.com/Jmat201/Montgomery-Police-Dispatched-Incidents-AWS-July/blob/50a924fd61031abda96788302481c46b3ac5c153/Dashboard%20Screenshots%20and%20Images/9.png)
-![Dashboard 9.1](https://github.com/Jmat201/Montgomery-Police-Dispatched-Incidents-AWS-July/blob/50a924fd61031abda96788302481c46b3ac5c153/Dashboard%20Screenshots%20and%20Images/9.1.png)
-![Dashboard 10](https://github.com/Jmat201/Montgomery-Police-Dispatched-Incidents-AWS-July/blob/50a924fd61031abda96788302481c46b3ac5c153/Dashboard%20Screenshots%20and%20Images/10.png)
+Map of Incidents in Silver Spring
+![Dashboard 9](https://github.com/Jmat201/Montgomery-Police-Dispatched-Incidents-AWS-July/blob/8bd0385ac4571bbd6f29af1fadbf9292892728f6/Dashboard%20Screenshots%20and%20Images/9.png)
+Non-Traffic/Transportation Incidents in Silver Spring
+![Dashboard 9.1](https://github.com/Jmat201/Montgomery-Police-Dispatched-Incidents-AWS-July/blob/8bd0385ac4571bbd6f29af1fadbf9292892728f6/Dashboard%20Screenshots%20and%20Images/9.1.png)
+Incidents on Gerogia Avenue, Silver Spring
+![Dashboard 10](https://github.com/Jmat201/Montgomery-Police-Dispatched-Incidents-AWS-July/blob/8bd0385ac4571bbd6f29af1fadbf9292892728f6/Dashboard%20Screenshots%20and%20Images/10.png)
 ![Dashboard 11](https://github.com/Jmat201/Montgomery-Police-Dispatched-Incidents-AWS-July/blob/50a924fd61031abda96788302481c46b3ac5c153/Dashboard%20Screenshots%20and%20Images/11.png)
-![Dashboard 12](https://github.com/Jmat201/Montgomery-Police-Dispatched-Incidents-AWS-July/blob/50a924fd61031abda96788302481c46b3ac5c153/Dashboard%20Screenshots%20and%20Images/12.png)
+Incidents on Rockville Pike, Rockville
+![Dashboard 12](https://github.com/Jmat201/Montgomery-Police-Dispatched-Incidents-AWS-July/blob/8bd0385ac4571bbd6f29af1fadbf9292892728f6/Dashboard%20Screenshots%20and%20Images/12.png)
 ![Dashboard 13](https://github.com/Jmat201/Montgomery-Police-Dispatched-Incidents-AWS-July/blob/50a924fd61031abda96788302481c46b3ac5c153/Dashboard%20Screenshots%20and%20Images/13.png)
-![Dashboard 14](https://github.com/Jmat201/Montgomery-Police-Dispatched-Incidents-AWS-July/blob/50a924fd61031abda96788302481c46b3ac5c153/Dashboard%20Screenshots%20and%20Images/14.png)
+Incidents on Veirs Mill Rd, Rockville
+![Dashboard 14](https://github.com/Jmat201/Montgomery-Police-Dispatched-Incidents-AWS-July/blob/8bd0385ac4571bbd6f29af1fadbf9292892728f6/Dashboard%20Screenshots%20and%20Images/14.png)
 ![Dashboard 15](https://github.com/Jmat201/Montgomery-Police-Dispatched-Incidents-AWS-July/blob/50a924fd61031abda96788302481c46b3ac5c153/Dashboard%20Screenshots%20and%20Images/15.png)
-![Dashboard 16](https://github.com/Jmat201/Montgomery-Police-Dispatched-Incidents-AWS-July/blob/50a924fd61031abda96788302481c46b3ac5c153/Dashboard%20Screenshots%20and%20Images/16.png)
+Incidents on Colesville Rd, Silver Spring
+![Dashboard 16](https://github.com/Jmat201/Montgomery-Police-Dispatched-Incidents-AWS-July/blob/8bd0385ac4571bbd6f29af1fadbf9292892728f6/Dashboard%20Screenshots%20and%20Images/16.png)
 ![Dashboard 17](https://github.com/Jmat201/Montgomery-Police-Dispatched-Incidents-AWS-July/blob/50a924fd61031abda96788302481c46b3ac5c153/Dashboard%20Screenshots%20and%20Images/17.png)
 
 ### Disposition Description - of top incidents in Top 4 cities  
@@ -226,7 +229,128 @@ Following are screenshots of the dashboard:
 
 ## Findings
 
+### Incidents (initial_type) by City and Percentage Comparison 
+* **(Q1)** In Montgomery County between June 10 and June 13, there were 1,157 incidents reported. The top four cities where incidents occurred were Silver Spring (36%), Rockville (17%), Gaithersburg (13%), and Germantown (9%).
+* **(Q2)** Of the 1,157 incidents, 862 (75%) occurred in these four cities. The most common incidents were ‘Traffic/Transportation Incident,’ ‘Suspicious Circumstances, Person, Vehicle,’ ‘Disturbance/Nuisance,’ and ‘Check Welfare.’
+* **(Q3)** Comparing the percentage of each of the top 3 incidents in these cities relative to the total incidents in each city, we see:
+  - ‘Traffic / Transportation Incident’ is highest in Gaithersburg at 12%, followed by Silver Spring at 9%, and Rockville at 7.5%.
+  - ‘Disturbance/Nuisance’ comprises 7.9% of the incidents in Gaithersburg, 6.5% in Rockville, and 5.8% in Silver Spring.
+  - ‘Check Welfare’ incidents are 1.5% more prevalent in Gaithersburg than in Germantown.
+  - ‘Traffic / Transportation Incident’ is 3% more prevalent in Gaithersburg than in Silver Spring, and 4.5% more than in Rockville.
+  - ‘Disturbance/Nuisance’ is 1.4% more prevalent in Gaithersburg than in Rockville.
 
+### Incidents by Address - (Street and Road), Latitude, Longitude, and Geocode
+
+* **(Q4)** To better analyze the precise location of incidents, we need to break up the ‘address’ column into meaningful patterns. Using ‘BLK’ as a separator, we split the address into street or road names. We found that:
+  - 3.5% of incidents in Montgomery County occur on ‘Georgia Ave’
+  - 1.7% occur on ‘Rockville Pike’
+  - 1.5% occur on ‘Veirs Mill Rd’
+  - 1.4% occur on ‘Colesville Rd’
+  - ‘Georgia Ave,’ ‘Rockville Pike,’ ‘Veirs Mill Rd,’ and ‘Colesville Rd’ are the top 4 street/road addresses where most incidents occur.
+  - The most common incidents on these streets are ‘Disturbance/Nuisance,’ ‘Trespassing/Unwanted,’ and ‘Theft/Larceny.’
+
+* **(Q5)** Using latitude and longitude, we can plot each incident on a map. In Silver Spring, most incidents occur at particular highway road crossovers/junctions, such as:
+  - ‘Connecticut Ave and Veirs Mill Rd’
+  - ‘University Blvd E and Colesville Rd’
+  - ‘Georgia Ave and University Blvd W’
+  - ‘Colesville Rd and Capital Beltway’
+  - ‘Randolph Rd, Layhill Rd, and Georgia Ave’
+
+#### Disposition Description (disposition_desc) for Top 4 initial_types in Top 4 Cities
+
+* **(Q6/7)** The `disposition_desc` field provides finer classification of incidents. Analyzing the combination of `disposition_desc` and `initial_type` for the top 4 `initial_type`s in the top 4 cities, we find:
+  - Silver Spring and Germantown have two notable combinations:
+    - ‘SUSPICIOUS PERSON/CIRC/PERSON/VEHICLE: SUSPICIOUS SIT/PRSON/VEH’
+    - ‘TRAFFIC/TRANSPORTATION INCIDENT: COLLISION-DAMAGE-ROAD-COLLISION’
+  - A significantly higher count of these incidents occurs in Silver Spring compared to Rockville, Gaithersburg, and Germantown, possibly due to the higher overall number of incidents in Silver Spring.
+  - ‘TRAFFIC/TRANSPORTATION INCIDENT: COLLISION-DAMAGE-ROAD-COLLISION’ is the most common disposition description across all four cities.
+  - In Rockville and Gaithersburg, the next two most common combinations are:
+    - ‘TRESPASSING/UNWANTED: TRESPASSING’
+    - ‘DISTURBANCE/NUISANCE: DISORDERLY CONDUCT’
+
+#### Analyzing Missing Values/Empty Strings in `dispatch_arrive` and `arrive_cleared`
+
+* **(Q8)** During the analysis of Q10-Q13, I found that 292 `incident_id`s had empty `dispatch_arrive` values (not nulls but empty strings), and 273 `incident_id`s had empty strings for `arrive_cleared`. Both fields had empty strings for 273 incidents. There is no clear indication of why these columns are empty based on the sector, beat (pra), or `police_district_number`. However:
+  - 22% (61 out of 273 cases) are in `police_district_number` 3D.
+  - 15% (41 incidents) are ‘THEFT - TRS THEFT/LARCENY - TELEPHONE REPORTING UNIT,’ while other incident types are at 6% or lower.
+  - We need to observe the data for more days to identify patterns in missing data/empty strings related to particular `police_dispatch_numbers`, sectors (beats), or incident types.
+
+We removed all empty string values from the analysis for Q10-Q13.
+
+### Time Taken (in Minutes) to Attend an Incident - Dispatch Arrive and Arrive Cleared
+
+* **(Q9)** Given that ‘Traffic/Transportation Incident,’ ‘Disturbance/Nuisance,’ and ‘Check Welfare’ are the top three most common incidents across the four cities—Silver Spring, Rockville, Gaithersburg, and Germantown—we are analyzing the ‘dispatch_arrive’ and ‘arrive_cleared’ times for these cities:
+  - Most ‘Traffic/Transportation Incidents’ take 5-10 minutes for dispatch to arrive in Silver Spring.
+
+* **(Q10)** Comparing the percentages of dispatch arrival time groups in the top 4 cities:
+  - 100% of ‘Traffic/Transportation Incidents’ in Germantown have dispatch arrival times of ‘0-5 mins,’ while the same is 33% in Gaithersburg, 40% in Rockville, and 30% in Silver Spring. This could be a concern for Silver Spring, given its high number of incidents and the predominance of ‘Traffic/Transportation Incidents’ in Montgomery County.
+
+  - For ‘Disturbance/Nuisance’ incidents in Silver Spring, police dispatch arrives within 0-5 minutes for 50% of the incidents. In Gaithersburg and Rockville, these figures are 37.5% and 30.8%, respectively. Given that ‘Disturbance/Nuisance’ incidents are the second most frequent in Gaithersburg (5.4%) and Rockville (6.5%), the relatively quicker response in Silver Spring is noteworthy.
+
+  - For ‘Check Welfare’ incidents, 67% of cases are attended to within 5-10 minutes in Gaithersburg. In Silver Spring, only 25% of these incidents are attended to within 0-5 minutes, suggesting that ‘Check Welfare’ may not be a high-priority incident.
+
+  - Overall, Germantown appears to be the most efficient in terms of police dispatch arrival times. This could be due to the lower number of incidents in Germantown.
+
+* **(Q11, Q13)** Comparing the Average Dispatch Minutes (ADM) of the same incident (initial_type) and priority across the top 4 cities—Silver Spring, Rockville, Gaithersburg, and Germantown:
+  - We assume the goal for each city is to achieve a lower ADM for each incident and priority. A lower ADM with a higher incident count suggests greater efficiency in handling incidents. Similarly, a lower Average Clearance Minutes (ACM) is desired, although some incidents may naturally require longer clearance times. Higher ACM might indicate thoroughness or longer resolution times.
+
+  Observations:
+  - For the following incident_priority combinations, ADM is most efficient in Silver Spring compared to the other cities:
+    - ASSAULT:0
+    - ASSAULT JUST OCCURRED - ROUTINE 1
+    - DISTURBANCE NUISANCE:1
+    - DISTURBANCE NUISANCE:2
+    - DOMESTIC DISTURBANCE/VIOLENCE - OCCURRED EARLIER:3
+    - DOMESTIC DISTURBANCE/VIOLENCE:0
+    - DOMESTIC DISTURBANCE/VIOLENCE:1
+    - DOMESTIC VIOLENCE:1
+    - HARASSMENT, STALKING, THREATS:1
+    - SUSPICIOUS CIRC, PERSONS, VEHICLE:1
+    - THEFT/LARCENY - OCCURRED EARLIER:4
+    - THEFT/LARCENY:2
+  - For ‘ALARMRD - ALARM COMMERCIAL BURGLARY/INTRUSION:1’ and ‘ALARMRD - RESIDENTIAL BURGLARY/INTRUSION:1,’ the ADM is worse in Rockville compared to Silver Spring and Gaithersburg.
+  - For ‘ANIMAL COMPL:1,’ the ADM is worse in Silver Spring and Gaithersburg but better in Rockville.
+  - For ‘FRAUD/DECEPTION - OCCURRED EARLIER:4,’ the ACM is worse in Silver Spring.
+  - For ‘MISSING, RUNAWAY, FOUND PERSON:1,’ ACM in Gaithersburg is three times that in Rockville.
+
+| Incident and Priority | ADM (Average Dispatch Arrival Minutes) | ACM (Average Arrival Cleared Minutes) |
+|-----------------------|----------------------------------------|---------------------------------------|
+| ALARMRB - ALARM COMMERCIAL BURGLARY/INTRUSION:1 | Higher in Rockville by 10 mins compared to Silver Spring and Gaithersburg | |
+| ALARMRB - RESIDENTIAL BURGLARY/INTRUSION:1 | Higher in Rockville by twice the time compared to Silver Spring and Gaithersburg | Highest count in Silver Spring yet the highest ACM |
+| ANIMAL COMPL:1 | The count of incidents for ANIMAL COMPL:1 is highest in Rockville, and ADM is lowest. In Silver Spring and Gaithersburg, it is three times the time taken in Rockville. | |
+| ASSAULT:0, ASSAULT JUST OCCURRED - ROUTINE 1 | Both have the lowest ADM in Silver Spring | |
+| CHECK WELFARE:1 | Lowest in Germantown, and the count of incidents is also lowest compared to the 4 cities | |
+| DISTURBANCE NUISANCE:1, DISTURBANCE NUISANCE:2 | Highest by count in Silver Spring but lowest in ADM, which is favorable. DISTURBANCE/NUISANCE:2 has the same count of incidents in Silver Spring and Rockville, yet the ACM in Rockville is four times the ACM in Silver Spring. | |
+| DOMESTIC DISTURBANCE/VIOLENCE - OCCURRED EARLIER:3, DOMESTIC DISTURBANCE/VIOLENCE:0, DOMESTIC DISTURBANCE/VIOLENCE:1, DOMESTIC VIOLENCE:1 | All are highest in terms of incident count in Silver Spring, yet the ADM is lowest, indicating efficient dispatch units. While ADM for DOMESTIC DISTURBANCE/VIOLENCE:1 in Gaithersburg is very low, the ACM is relatively high at 35 minutes for 4 incidents. | |
+| FRAUD/DECEPTION - OCCURRED EARLIER:4 | Has the highest count of incidents in Silver Spring, and the ACM is highest as well. | |
+| HARASSMENT, STALKING, THREATS:1 | Highest count of incidents in Silver Spring, yet lowest in ADM | |
+| SUSPICIOUS CIRC, PERSONS, VEHICLE:1 | Highest in terms of incident count in Silver Spring, yet has the lowest ADM, indicating that dispatch units in Silver Spring are most efficient in reaching the incident location. | |
+| THEFT/LARCENY - OCCURRED EARLIER:4, THEFT/LARCENY:2 | | |
+| MISSING, RUNAWAY, FOUND PERSON:1 | The ACM for MISSING, RUNAWAY, FOUND PERSON:1 has the highest count of incidents at 7 in Rockville, yet the ACM is lowest at 25.84. In Gaithersburg, with 3 incidents, the ACM is 72.97, almost three times the ACM in Rockville. | |
+
+* **(Q12)** During the dataset period (June 10-13), there was one incident for ‘SEXUAL ASSAULT - OCCURRED EARLIER:3’ in Silver Spring, Rockville, Gaithersburg, and Germantown. The dispatch arrival time in Silver Spring was 49.3 minutes, significantly longer than in other cities, though this incident was cleared in 81 seconds, suggesting it may be an outlier.
+
+* **(Q14, Q15, Q17)** Comparing the Average Dispatch Minutes (ADM) of the same incident (initial_type) and priority across the most frequent street/road addresses—Georgia Ave, Rockville Pike, Veirs Mill Rd, Colesville Rd:
+  - We use the same assumptions as in Q11 and Q13.
+
+| Incident and Priority | ADM (Average Dispatch Arrival Minutes) |
+|-----------------------|----------------------------------------|
+| CHECK WELFARE:1 | ADM for CHECK WELFARE:1 in Veirs Mill Rd is 7.81 minutes but twice the time taken in Georgia Ave (14.53 minutes) and Rockville (15.54 minutes), despite having the same count of incidents across all three locations. |
+| DISTURBANCE/NUISANCE:1 | The ADM for DISTURBANCE/NUISANCE:1 in Georgia Ave is twice the time taken in Colesville Rd, even with the same count of incidents. |
+| THEFT/LARCENY:2 | Has a higher count of incidents in Georgia Ave, with ADM more than three times that in other locations with most incidents such as Colesville Rd and Rockville Pike. |
+| TRESPASSING/UNWANTED:2 | TRESPASSING/UNWANTED:2 has the highest count of incidents in Rockville Pike with an average ADM of 41.7 minutes, while in Georgia Ave, it is one-eighth of that time. |
+
+* **(Q18)** Comparing the percentage of Priority and initial_type combinations for the top 4 initial_types in each of the four cities—Silver Spring, Rockville, Gaithersburg, and Germantown:
+
+| City | Highest 2 Priority_Incident (based on total count of incidents in a city) |
+|------|--------------------------------------------------------------------------|
+| Silver Spring | 1: SUSPICIOUS CIRC, PERSON, VEHICLE (8%) <br> 2: TRAFFIC/TRANSPORTATION INCIDENT (6.6%) |
+| Rockville | 1: CHECK WELFARE (5.5%) <br> 2: TRESPASSING/UNWANTED (5.5%) |
+| Gaithersburg | 1: SUSPICIOUS CIRC, PERSON, VEHICLE (22.3%) <br> 2: TRAFFIC/TRANSPORTATION INCIDENT (18.2%) |
+| Germantown | 1: SUSPICIOUS CIRC, PERSON, VEHICLE (8.9%) <br> 2: STATION RESPONSE (9.9%) |
+
+- A significantly higher percentage of ‘1: SUSPICIOUS CIRC, PERSON, VEHICLE’ and ‘2: TRAFFIC/TRANSPORTATION INCIDENT’ combinations occur in Gaithersburg.
+- Germantown has a notably high percentage of ‘2: STATION RESPONSE,’ which is not among the top 3 in any other city.
 
 ## Future Improvements:
 
@@ -234,9 +358,11 @@ Following are screenshots of the dashboard:
 - Add more data to the analysis to see if patterns have changed 
 - From the analysis of Q6, do the particular combination of initia_type and disposition_Desc occur on specific streets/road addresses in Silver spring based on the map.  
 
+## Author & Acknowledgement: 
+- Author: [Jeff Mathew Sam](https://www.linkedin.com/in/jeffmathewsam/)
+- Special thanks to [David Fretag](https://github.com/dkfreitag) for his invalueable guidance throughout the course. 
 
 ## License
-Details about the license under which the project is released.
+This project is licensed under the MIT License.
 
-## Contact Information
-How to get in touch with the project maintainers.
+
