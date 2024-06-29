@@ -6,7 +6,7 @@ A Project done in AWS based on Montgomery County, Maryland (MD) Police Dispatche
 Montgomery County, Maryland (MD) Police Dispatched Incidents: June 2024.  
 This Data Engineering project was built based on the course [Build your first Serverless Data Engineering Project](https://maven.com/david-freitag/first-serverless-de-project) on Maven. The project aims to build a fully functional data engineering pipeline, including data ingestion from an external API, performing ETL workflow orchestration, data cleaning, data quality checks, publishing to production, and generating visualizations using Amazon Web Service (AWS) and Grafana.  
 
-The goal of the project is to analyze police dispatch incidents in Montgomery County, MD, to understand patterns of incidents that occur within different cities in Montgomery county along with an open-ended exploration of the data.
+The goal of the project is to analyze police dispatched incidents in Montgomery County, MD, to understand patterns of incidents that occur within different cities in Montgomery county along with an open-ended exploration of the data.
 
 ## About the Dataset
 The dataset is publicly available and provided by Montgomery County, MD. It is updated four times a day and contains a list of Police Dispatch Incidents in Montgomery County.  
@@ -138,27 +138,27 @@ This orchestrated workflow ensures a streamlined and automated ETL process, prep
     - What are the common time ranges for these incidents (0-5 mins, 5-10 mins, etc.)?
     - How does the distribution of clearance times compare across the cities?
 
-11. Which initial_type and priority combinations have the worst and best Average Dispatch Arrival Minutes (ADM) across Silver Spring, Rockville, Gaithersburg, and Germantown?
+11. Which initial_type and priority combinations have the **worst and best Average Dispatch Arrival Minutes (ADM)** across **Silver Spring, Rockville, Gaithersburg, and Germantown**?
     - How consistent are ADMs for the same incident types and priorities across different cities?
 
-12. Why does ‘Sexual Assault - occurred earlier:3’ have the highest ADM in Silver Spring compared to other cities?
+12. Why does **‘Sexual Assault - occurred earlier:3’** have the **highest ADM in Silver Spring** compared to other cities?
 
-13. Which initial_type and priority combinations have the worst and best Average Clearance Minutes (ACM) across Silver Spring, Rockville, Gaithersburg, and Germantown?
+13. Which initial_type and priority combinations have the **worst and best Average Clearance Minutes (ACM)** across **Silver Spring, Rockville, Gaithersburg, and Germantown**?
     - How consistent are ACMs for the same incident types and priorities across different cities?
 
-14. Comparing ADMs for the same incident types and priorities across key streets (e.g., Georgia Ave, Rockville Pike, Colesville Rd, Veirs Mill Rd), which combinations perform worst and best consistently?
+14. Comparing **ADMs for the same incident types and priorities** across **key streets/road address** (e.g., Georgia Ave, Rockville Pike, Colesville Rd, Veirs Mill Rd), which combinations perform worst and best consistently? (street/road address is a derived column)
     - How distorted are ADMs for the same incident types and priorities across these streets?
 
-15. Comparing ACMs for the same incident types and priorities across key streets (e.g., Georgia Ave, Rockville Pike, Colesville Rd, Veirs Mill Rd), which combinations perform worst and best consistently?
+15. Comparing **ACMs for the same incident types and priorities** across **key streets/road address** (e.g., Georgia Ave, Rockville Pike, Colesville Rd, Veirs Mill Rd), **which combinations perform worst and best consistently?
     - How distorted are ACMs for the same incident types and priorities across these streets?
 
-16. Are there instances where a city has a higher ADM and a higher incident count for a particular initial_type and priority combination, indicating response challenges?
+16. Are there **instances** where **a city has a higher ADM and a higher incident count for a particular initial_type and priority combination**, indicating response challenges?
 
-17. Are there instances where a city has a lower ADM and a higher incident count for a particular initial_type and priority combination, indicating more efficient response?
+17. Are there **instances** where **a city has a lower ADM and a higher incident count for a particular initial_type and priority combination**, indicating more efficient response?
 
 #### Comparison of Priority by incident in - Top 4 address and Top 4 cities 
 
-18. Is there a higher percentage of incidents and priorities in one city compared to another among the top 4 incident types in Silver Spring, Rockville, Gaithersburg, and Germantown?
+18. Is there a **higher percentage of incidents and priorities** in one city compared to another among the top 4 incident types **in Silver Spring, Rockville, Gaithersburg, and Germantown**?
 
 
 ## Dashboard preview
